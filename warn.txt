@@ -1,0 +1,47 @@
+﻿
+Mongoose problems
+
+---------------------------------------------------------------------
+
+PROBLEM
+
+(node:3288) DeprecationWarning: 
+`open()` is deprecated in mongoose >= 4.11.0, 
+use `openUri()` instead, 
+or set the `useMongoClient` option if using `connect()` 
+or `createConnection()`. 
+
+See http://mongoosejs.com/docs/connections.html#use-mongo-client
+
+SOLUTION
+
+Recomended to use native 'options' of native MongoDB driver for Node.js
+http://mongodb.github.io/node-mongodb-native/2.2/api/MongoClient.html
+
+// example
+const config = {
+  uri: 'mongodb://localhost/test',
+
+  options: {
+    useMongoClient: true,
+    socketTimeoutMS: 0,
+    keepAlive: true,
+    reconnectTries: 30
+  }
+};
+mongoose.connect(config.uri, config.options);
+
+---------------------------------------------------------------------
+
+PROBLEM
+
+(node:7664) DeprecationWarning: 
+Mongoose: mpromise (mongoose's default promise library) is deprecated, 
+
+plug in your own promise library instead: 
+http://mongoosejs.com/docs/promises.html
+
+SOLUTION
+
+// Use native promises
+mongoose.Promise = global.Promise;

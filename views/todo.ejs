@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <title>
+    <%= title %>
+  </title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">Express</a>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li><a href="/">Home</a></li>
+          <li><a href="/news">News</a></li>
+          <li class="active"><a href="/todo">ToDo <span class="sr-only">(current)</span></a></li>
+          <li><a href="#">Link 4</a></li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+
+  <header>Header here</header>
+
+  <main>
+    <h1><%= title %></h1>
+    <form action="/todo" method="post" name="add">
+	    <div class="form-group">
+        <label for="task">Task content</label>
+        <input type="text" class="form-control" id="task" name="task" placeholder="add task here">
+      </div>
+	    <button type="submit" class="btn btn-primary">Add task</button>
+    </form>
+
+    <% if (actionError) { %>
+    <div class="alert alert-warning" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <p><%= actionError %></p>
+    </div>
+    <% } %>
+
+    <% if (loadError) { %>
+    <div class="alert alert-danger" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <p><%= loadError %></p>
+    </div>
+    <% } %>
+
+    <% if (actionSuccess) { %>
+    <div class="alert alert-success" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <p><%= actionSuccess %></p>
+    </div>
+    <% } %>
+
+    <% if (todos.length) { %>
+    <ul id="tasks" class="tasks">
+      <% for (let task of todos) { %>
+      <li class="tasks__task" data-id=<%= task._id %>>
+        <form action="/todo" method="post" name="edit">
+          <div class="btn-group pull-right" role="group" aria-label="task-control">
+            <button type="button" class="btn btn-success btn-xs" data-method="open">&ensp;Edit&ensp;</button>
+            <button type="submit" class="btn btn-warning btn-xs" data-method="delete">Delete</button>
+          </div>
+          <div class="form-group hide">
+            <input type="text" class="form-control" name="taskEdit" placeholder="edit task here">
+            <button type="submit" class="btn btn-info btn-xs pull-right" data-method="put">Save changes</button>
+          </div>
+        </form>
+        <p class="tasks__task__content"><%= task.content %></p>
+      </li>
+      <% } %>
+    </ul>
+
+    <% } else { %>
+    <p>Задач нет</p>
+    <% } %>
+  </main>
+
+  <footer>Footer here</footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src="js/client.todo.js"></script>
+</body>
+
+</html>

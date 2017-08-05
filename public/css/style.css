@@ -1,0 +1,66 @@
+html {
+  box-sizing: border-box;
+  font: 16px/1.5 "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+* {
+  box-sizing: inherit;
+}
+
+header, footer {
+  height: 50px;
+  background: gray;
+  text-align: center;
+}
+
+main {
+  max-width: 960px;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+
+h1 {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+p {
+  margin-bottom: 20px;
+}
+
+form {
+  margin-bottom: 30px;
+}
+
+select {
+  margin-bottom: 20px;
+}
+
+.range__text {
+  text-align: center;
+}
+
+.hide {
+  display: none;
+}
+
+.loader {
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
+  background: url("../img/loading.gif") no-repeat 50% 50%;
+}
+
+.tasks {
+  list-style: none;
+  padding: 0;
+}
+
+.tasks__task {
+  border-bottom: 1px solid lightgray;
+}
+
+.alert p {
+  text-align: center;
+}
