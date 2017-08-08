@@ -82,7 +82,7 @@
     <% if (todos.length) { %>
     <ul id="tasks" class="tasks">
       <% for (let task of todos) { %>
-      <li class="tasks__task" data-id=<%= task._id %>>
+      <li class="tasks__task" data-id=<%= task._id || task.id %>>
         <form action="/todo" method="post" name="edit">
           <div class="btn-group pull-right" role="group" aria-label="task-control">
             <button type="button" class="btn btn-success btn-xs" data-method="open">&ensp;Edit&ensp;</button>

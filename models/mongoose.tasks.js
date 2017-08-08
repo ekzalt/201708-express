@@ -1,3 +1,5 @@
+// MongoDB + Mongoose code
+
 // const mongodb = require('mongodb');
 const mongoose = require('mongoose');
 
@@ -18,12 +20,22 @@ const taskSchema = mongoose.Schema({
 const TaskModel = mongoose.model('Task', taskSchema);
 
 /*
-let exampleOneTask = {
+// in MongoDB
+let exampleTask = {
 	_id: 0,
 	content: 'Some text',
 };
 
-let exampleOneUser = {
+// in MySQL
+let exampleTask = {
+	id: 0,
+	content: 'Some text',
+};
+
+/////////////////////////
+
+// in MongoDB
+let exampleUser = {
 	_id: 0,
 	name: 'Alex',
 	tasks: [{
@@ -33,6 +45,17 @@ let exampleOneUser = {
 	}, {
 		content: 'Some text 3'
 	}]
+};
+
+// in MySQL - 2 tables
+let exampleUser = {
+	id: 0,
+	name: 'Alex'
+};
+let exampleTasks = {
+	id: 0,
+	userID: 0,
+	content: 'Some text',
 };
 */
 
@@ -44,21 +67,19 @@ class Task {
 	}
 
 	showList() {
-		// emit: 'Показать все задачи'
-		// action: show all tasks
-		// GET /todo
-
 		/*
+		// callback way
 		return this.model.find({}, (err, results) => {
 			if (err) {
 				console.error('Error read tasks from MongoDB:\n', err);
-				return null;
+				return err;
 			}
 
 			return results;
 		});
 		*/
 
+		// promise way
 		return this.model.find()
 			.then(results => results)
 			.catch(err => {
@@ -68,21 +89,19 @@ class Task {
 	}
 
 	addTask(content) {
-		// emit: 'Добавить задачу'
-		// action: add new task
-		// POST /todo
-
 		/*
+		// callback way
 		return this.model.create({ content }, (err, result) => {
 			if (err) {
 				console.error('Error write new task to MongoDB:\n', err);
-				return null;
+				return err;
 			}
 
 			return result;
 		});
 		*/
 
+		// promise way
 		return this.model.create({ content })
 			.then(result => result)
 			.catch(err => {
@@ -92,21 +111,19 @@ class Task {
 	}
 
 	changeTask(id, content) {
-		// emit: 'Изменить задачу'
-		// action: change task content by id
-		// PUT /todo/:id
-
 		/*
+		// callback way
 		return this.model.findByIdAndUpdate(id, { content }, (err, result) => {
 			if (err) {
 				console.error('Error update task in MongoDB:\n', err);
-				return null;
+				return err;
 			}
 
 			return result;
 		});
 		*/
 
+		// promise way
 		return this.model.findByIdAndUpdate(id, { content })
 			.then(result => result)
 			.catch(err => {
@@ -116,21 +133,19 @@ class Task {
 	}
 
 	deleteTask(id) {
-		// emit: 'Удалить'
-		// action: delete task by id
-		// DELETE /todo/:id
-
 		/*
+		// callback way
 		return this.model.findByIdAndRemove(id, err => {
 			if (err) {
 				console.error('Error delete task from MongoDB:\n', err);
-				return null;
+				return err;
 			}
 
 			return true;
 		});
 		*/
 
+		// promise way
 		return this.model.findByIdAndRemove(id)
 			.then(() => true)
 			.catch(err => {

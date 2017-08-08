@@ -45,3 +45,34 @@ SOLUTION
 
 // Use native promises
 mongoose.Promise = global.Promise;
+
+---------------------------------------------------------------------
+
+---------------------------------------------------------------------
+
+---------------------------------------------------------------------
+
+Sequelize
+
+---------------------------------------------------------------------
+
+PROBLEM
+
+Error: Please install mysql2 package manually
+
+SOLUTION
+
+Sequelize do not work with mysql, only with mysql2
+> npm i mysql2
+
+---------------------------------------------------------------------
+
+PROBLEM
+
+Error read tasks from MySQL:
+ { SequelizeDatabaseError: Unknown column 'id' in 'field list' ...
+
+SOLUTION
+
+I changed the name of the property where the index is stored in my MySQL db: 
+_id -> id

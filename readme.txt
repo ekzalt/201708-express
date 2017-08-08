@@ -5,7 +5,11 @@ About this project
 
 I wrote this server on Node.js, and using the Express framework.
 To stylize page layout, I used the Bootstrap framework.
-For data storage, I used the MongoDB database + Mongoose.
+
+For data storage, I used 2 databases:
+1. MongoDB + Mongoose,
+2. MySQL + Sequelize.
+You can choose what you like best.
 
 Server Features:
 
@@ -20,11 +24,9 @@ Client javascript also knows how to handle query errors.
 I wrote a ToDo application that returns a list of tasks.
 The application allows the user to add, edit, delete a task.
 The layout of this page is generated on the server side by the EJS template engine.
-To store tasks, I connected the MongoDB database.
-Working with the database is not directly, but through Mongoose schemas.
+Here you can select the MongoDB or MySQL database.
 
 Future plans:
-  - make a copy of this server with a relational database (SQL), which will work through the module Sequelize,
   - add registration and authorization (/signin, /login, /logout),
   - add support for user sessions,
   - /todo will be available only to registered users,
@@ -38,7 +40,11 @@ Russian
 
 Я написал этот сервер на Node.js, и с помощью фреймворка Express.
 Для стилизации разметки страниц я использовал фреймворк Bootstrap.
-Для хранения данных я использовал базу даных MongoDB + Mongoose.
+
+Для хранения данных я использовал 2 базы даных:
+1. MongoDB + Mongoose,
+2. MySQL + Sequelize.
+Вы можете выбрать, что вам больше нравится.
 
 Возможности сервера:
 
@@ -53,11 +59,9 @@ Russian
 Я написал ToDo приложение, которое возвращает список задач.
 Приложение позволяет пользователю добавлять, редактировать, удалять задачу.
 Разметка этой страницы генерируется на сервере с помощью шаблонизатора EJS.
-Для хранения задач я подключил базу данных MongoDB.
-Работа с базой данных происходит не напрямую, а через Mongoose.
+Здесь вы можете выбрать базу данных MongoDB или MySQL.
 
 Планы на будущее:
- - сделать копию этого сервера с реляционной базой данных (SQL), которая будет работать через модуль Sequelize,
  - добавить регистрацию и авторизацию (/signin, /login, /logout),
  - добавить поддержку сессий пользователей,
  - /todo будет доступна только зарегистрированным пользователям,

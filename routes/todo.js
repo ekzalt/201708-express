@@ -1,7 +1,11 @@
 const express = require('express');
 const router = express.Router();
 
-const tasks = require('../models/mongoose.tasks');
+// uncomment here to use database: MongoDB + Mongoose
+// const tasks = require('../models/mongoose.tasks');
+
+// uncomment here to use database: MySQL + Sequelize
+const tasks = require('../models/sequelize.tasks');
 
 /*
 let todos = [{
