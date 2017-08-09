@@ -1,14 +1,4 @@
-// MongoDB + Mongoose code
-
-// const mongodb = require('mongodb');
-const mongoose = require('mongoose');
-
-// Use native promises - http://mongoosejs.com/docs/promises.html
-mongoose.Promise = global.Promise;
-
-const config = require('./mongoose.config');
-
-mongoose.connect(config.uri, config.options);
+const mongoose = require('../db/mongoose.provider');
 
 const taskSchema = mongoose.Schema({
 	content: {

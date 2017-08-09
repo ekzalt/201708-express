@@ -7,9 +7,11 @@ const bodyParser = require('body-parser');
 
 const pathways = require('./routes/pathways');
 const index = require('./routes/index');
+const registry = require('./routes/registry');
+const login = require('./routes/login');
 const news = require('./routes/news');
 const todo = require('./routes/todo');
-const users = require('./routes/users');
+const user = require('./routes/user');
 
 const app = express();
 
@@ -19,6 +21,7 @@ app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -26,9 +29,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(pathways.index, index);
+app.use(pathways.registry, registry);
+app.use(pathways.login, login);
 app.use(pathways.news, news);
 app.use(pathways.todo, todo);
-app.use(pathways.users, users);
+app.use(pathways.user, user);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

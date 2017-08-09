@@ -9,7 +9,7 @@ html {
 
 header, footer {
   height: 50px;
-  background: gray;
+  background: #111;
   text-align: center;
 }
 
@@ -37,12 +37,22 @@ select {
   margin-bottom: 20px;
 }
 
-.range__text {
-  text-align: center;
-}
-
 .hide {
   display: none;
+}
+
+.divider {
+  height: 2px;
+  background: #111;
+  border-bottom: 1px solid #333;
+}
+
+.jumbotron p {
+  margin: 20px;
+}
+
+.range__text {
+  text-align: center;
 }
 
 .loader {

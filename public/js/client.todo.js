@@ -1,4 +1,4 @@
-let formAdd = document.forms.add;
+const formAdd = document.forms.add;
 
 formAdd.addEventListener('submit', e => {
   e.preventDefault();
@@ -35,7 +35,7 @@ formAdd.addEventListener('submit', e => {
     });
 });
 
-let tasks = document.getElementById('tasks');
+const tasks = document.getElementById('tasks');
 
 tasks.addEventListener('click', e => {
   if (e.target.dataset.method === 'open') {

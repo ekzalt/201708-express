@@ -1,6 +1,8 @@
 module.exports = {
   index: '/',
+  login: '/login',
+  registry: '/registry',
   news: '/news',
   todo: '/todo',
-  users: '/users'
+  user: '/user'
 };

@@ -1,15 +1,14 @@
 const express = require('express');
 const router = express.Router();
 
-// GET home page
+// GET user page
 router.get('/', (req, res, next) => {
-  console.log('\n --- GET / ---');
-  console.log('req.params:', req.params);
+  console.log('\n --- GET /users ---');
   console.log('req.cookies:', req.cookies);
   console.log('req.signedCookies:', req.signedCookies);
   console.log('req.body:', req.body);
   
-  res.render('index', { title: 'Home' });
+  res.send('user');
 });
 
 module.exports = router;

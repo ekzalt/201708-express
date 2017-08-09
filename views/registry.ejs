@@ -31,13 +31,13 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-          <li class="active"><a href="/">Home <span class="sr-only">(current)</span></a></li>
+          <li><a href="/">Home</a></li>
           <li><a href="/news">News</a></li>
           <li><a href="/todo">ToDo</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li role="separator" class="divider"></li>
-          <li><a href="/registry">Registry</a></li>
+          <li class="active"><a href="/registry">Registry <span class="sr-only">(current)</span></a></li>
           <li><a href="/login">Login</a></li>
           <!--
           <li><a href="/user/id">Username</a></li>
@@ -52,19 +52,49 @@
 
   <main>
     <h1><%= title %></h1>
-    <div class="jumbotron">
-      <div class="container">
-        <h1>Hello, world!</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit quia, quidem odio magni repellendus non obcaecati! Repudiandae illum aut vel, eum neque perspiciatis ipsum. Voluptatibus nulla quia aut, saepe quae.</p>
-        <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
+    <div id="messages"></div>
+
+    <form action="/registry" method="post" class="form-horizontal" name="regForm">
+      <div class="form-group">
+        <label for="login" class="col-sm-2 control-label">Login</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="login" name="login" placeholder="nickname">
+        </div>
       </div>
-    </div>
+      <div class="form-group">
+        <label for="password" class="col-sm-2 control-label">Password</label>
+        <div class="col-sm-10">
+          <input type="password" class="form-control" id="password" name="password" placeholder="password">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="name" class="col-sm-2 control-label">Name</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="name" name="name" placeholder="Name">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email" class="col-sm-2 control-label">Email</label>
+        <div class="col-sm-10">
+          <input type="email" class="form-control" id="email" name="email" placeholder="my@site.com">
+          <small>To confirm the registration you will be sent an email</small>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button type="submit" class="btn btn-primary">Reg me</button>
+          <span>or</span>
+          <button type="reset" class="btn btn-default">Reset</button>
+        </div>
+      </div>
+    </form>
   </main>
 
   <footer>Footer here</footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src="js/client.registry.js"></script>
 </body>
 
 </html>
