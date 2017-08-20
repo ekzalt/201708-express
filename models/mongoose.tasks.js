@@ -12,40 +12,8 @@ const TaskModel = mongoose.model('Task', taskSchema);
 /*
 // in MongoDB
 let exampleTask = {
-	_id: 0,
-	content: 'Some text',
-};
-
-// in MySQL
-let exampleTask = {
-	id: 0,
-	content: 'Some text',
-};
-
-/////////////////////////
-
-// in MongoDB
-let exampleUser = {
-	_id: 0,
-	name: 'Alex',
-	tasks: [{
-		content: 'Some text 1'
-	}, {
-		content: 'Some text 2'
-	}, {
-		content: 'Some text 3'
-	}]
-};
-
-// in MySQL - 2 tables
-let exampleUser = {
-	id: 0,
-	name: 'Alex'
-};
-let exampleTasks = {
-	id: 0,
-	userID: 0,
-	content: 'Some text',
+	_id: 0, // default
+	content: 'Some text', // required
 };
 */
 

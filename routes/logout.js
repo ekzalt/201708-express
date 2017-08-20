@@ -4,7 +4,7 @@ const router = express.Router();
 const log = require('../middleware/log');
 const passport = require('../middleware/passport.strategy');
 
-// GET login page
+// GET logout page
 
 router.get('/', async (req, res, next) => {
   log.info({
@@ -17,19 +17,15 @@ router.get('/', async (req, res, next) => {
     body: req.body
   });
 
-  if (req.isAuthenticated()) {
-    res.redirect('/logout');
-    return;
-  }
+  /*
+  // /logout action
+  req.session.destroy(function(err) {
+    // cannot access session here
+  });
+  */
 
-  res.render('login', { title: 'Login' });
+  req.logout();
+  res.redirect('/');
 });
-
-// POST login page
-
-router.post('/', passport.authenticate('local', {
-  successRedirect: '/',
-  failureRedirect: '/login'
-}));
 
 module.exports = router;

@@ -8,8 +8,11 @@ mongoose.Promise = global.Promise;
 
 const config = require('../config/mongoose.config');
 
-mongoose.connect(config.uri, config.options);
+mongoose.connect(config.uri, config.options)
+  .then(data => console.log(`Connection to MongoDB database ${config.uri} has been established successfully! :)`))
+  .catch(err => console.error(`Unable to connect to MongoDB database ${config.uri}:\n`, err.message));
 
+/*
 const db = mongoose.connection;
 
 db.on('error', err => {
@@ -19,5 +22,6 @@ db.on('error', err => {
 db.once('open', () => {
   console.log(`Connection to MongoDB database ${config.uri} has been established successfully! :)`);
 });
+*/
 
 module.exports = mongoose;

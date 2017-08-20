@@ -1,4 +1,28 @@
 ﻿
+MongoDB problems
+
+---------------------------------------------------------------------
+
+PROBLEM
+
+(node:2440) UnhandledPromiseRejectionWarning: 
+Unhandled promise rejection (rejection id: 1): 
+MongoError: failed to connect to server [localhost:27017] on first connect 
+[MongoError: connect ECONNREFUSED 127.0.0.1:27017]
+
+(node:2440) [DEP0018] DeprecationWarning: 
+Unhandled promise rejections are deprecated. 
+In the future, promise rejections that are not handled 
+will terminate the Node.js process with a non-zero exit code.
+
+SOLUTION
+
+mongoose.connect(config.uri, config.options)
+  .then(data => console.log(data))
+  .catch(err => console.error(err));
+
+---------------------------------------------------------------------
+
 Mongoose problems
 
 ---------------------------------------------------------------------

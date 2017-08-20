@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
+const log = require('../middleware/log');
+
 // uncomment here to use database: MongoDB + Mongoose
 const tasks = require('../models/mongoose.tasks');
 
@@ -30,12 +32,17 @@ let messages = {
 };
 
 // GET todo page
+
 router.get('/', async (req, res, next) => {
-  console.log('\n --- GET /todo ---');
-  console.log('req.params:', req.params);
-  console.log('req.cookies:', req.cookies);
-  console.log('req.signedCookies:', req.signedCookies);
-  console.log('req.body:', req.body);
+  log.info({
+    method: req.method,
+    url: req.url,
+    params: req.params,
+    cookies: req.cookies,
+    signedCookies: req.signedCookies,
+    session: req.session,
+    body: req.body
+  });
 
   /*
   res.render('todo', {
@@ -68,12 +75,17 @@ router.get('/', async (req, res, next) => {
 });
 
 // POST todo page
+
 router.post('/', async (req, res, next) => {
-  console.log('\n --- POST /todo ---');
-  console.log('req.params:', req.params);
-  console.log('req.cookies:', req.cookies);
-  console.log('req.signedCookies:', req.signedCookies);
-  console.log('req.body:', req.body);
+  log.info({
+    method: req.method,
+    url: req.url,
+    params: req.params,
+    cookies: req.cookies,
+    signedCookies: req.signedCookies,
+    session: req.session,
+    body: req.body
+  });
 
   /*
   let val = req.body.task.trim();
@@ -112,12 +124,17 @@ router.post('/', async (req, res, next) => {
 });
 
 // DELETE todo page
+
 router.delete('/:id', async (req, res, next) => {
-  console.log('\n --- DELETE /todo/:id ---');
-  console.log('req.params:', req.params);
-  console.log('req.cookies:', req.cookies);
-  console.log('req.signedCookies:', req.signedCookies);
-  console.log('req.body:', req.body);
+  log.info({
+    method: req.method,
+    url: req.url,
+    params: req.params,
+    cookies: req.cookies,
+    signedCookies: req.signedCookies,
+    session: req.session,
+    body: req.body
+  });
 
   /*
   todos.forEach((task, i) => {
@@ -146,12 +163,17 @@ router.delete('/:id', async (req, res, next) => {
 });
 
 // PUT todo page
+
 router.put('/:id', async (req, res, next) => {
-  console.log('\n --- PUT /todo/:id ---');
-  console.log('req.params:', req.params);
-  console.log('req.cookies:', req.cookies);
-  console.log('req.signedCookies:', req.signedCookies);
-  console.log('req.body:', req.body);
+  log.info({
+    method: req.method,
+    url: req.url,
+    params: req.params,
+    cookies: req.cookies,
+    signedCookies: req.signedCookies,
+    session: req.session,
+    body: req.body
+  });
 
   /*
   let val = req.body.task.trim();

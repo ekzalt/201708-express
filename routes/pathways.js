@@ -1,8 +1,9 @@
 module.exports = {
   index: '/',
   login: '/login',
-  registry: '/registry',
+  logout: '/logout',
   news: '/news',
+  registry: '/registry',
   todo: '/todo',
   user: '/user'
 };

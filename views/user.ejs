@@ -32,71 +32,68 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
           <li><a href="/">Home</a></li>
-          <li class="active"><a href="/news">News <span class="sr-only">(current)</span></a></li>
+          <li><a href="/news">News</a></li>
           <li><a href="/todo">ToDo</a></li>
         </ul>
-
         <ul class="nav navbar-nav navbar-right">
           <li role="separator" class="divider"></li>
-          <% if (user) { %>
-            <li><a href="/user/<%= user.id %>"><%= user.name %></a></li>
-            <li><a href="/logout">Logout</a></li>
-          <% } else { %>
-            <li><a href="/registry">Registry</a></li>
-            <li><a href="/login">Login</a></li>
-          <% } %>
+          <!--
+          <li><a href="/registry">Registry</a></li>
+          <li><a href="/login">Login</a></li>
+          -->
+          <li class="active"><a href="/user/<%= user.id %>"><%= user.name %> <span class="sr-only">(current)</span></a></li>
+          <li><a href="/logout">Logout</a></li>
         </ul>
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
   </nav>
-
+  
   <header>Header here</header>
 
   <main>
     <h1><%= title %></h1>
-    <p>Новостные порталы:
-      <a href="https://habrahabr.ru/">Хабрахабр</a>,
-      <a href="https://geektimes.ru/">Geektimes</a>,
-      <a href="https://tmfeed.ru/popular/day/">TM Feed</a>
-    </p>
 
-    <!--
-    <form action="/news" method="post" name="newsLoad">
-      <select class="form-control" name="resourse">
-        <option value="habrahabr">Хабрахабр</option>
-        <option value="geektimes">Geektimes</option>
-        <option value="tmfeed">TM Feed</option>
-      </select>
-      <div class="range">
-        <input type="range" name="range" min="1" max="10" value="5">
-        <p class="range__text">количество новостей: <span id="rangeValue">5</span></p>
-      </div>
-      <button type="submit" class="btn btn-success">Загрузить новости</button>
-    </form>
-    -->
+    <div id="message">
+      <% if (loadError) { %>
+        <div class="alert alert-danger" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <p><%= loadError %></p>
+        </div>
+      <% } %>
 
-    <form action="/news" name="newsLoad">
-      <select class="form-control" name="resourse">
-        <option value="habrahabr">Хабрахабр</option>
-        <option value="geektimes">Geektimes</option>
-        <option value="tmfeed">TM Feed</option>
-      </select>
-      <div class="range">
-        <input type="range" name="range" min="1" max="10" value="5">
-        <p class="range__text">количество новостей: <span id="rangeValue">5</span></p>
-      </div>
-      <button type="submit" class="btn btn-success">Загрузить новости</button>
-    </form>
+      <% if (actionError) { %>
+        <div class="alert alert-warning" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <p><%= actionError %></p>
+        </div>
+      <% } %>
 
-    <div id="loader" class="loader hide"></div>
-    <section id="news" class="list-group"></section>
+      <% if (actionSuccess) { %>
+        <div class="alert alert-success" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <p><%= actionSuccess %></p>
+        </div>
+      <% } %>
+    </div>
+
+    <p><%= user.login %></p>
+    <p><%= user.password %></p>
+    <p><%= user.name %></p>
+    <p><%= user.email %></p>
+
+    <!-- edit user form will be here -->
   </main>
 
   <footer>Footer here</footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-  <script src="js/client.news.js"></script>
 </body>
 
 </html>
