@@ -3,13 +3,15 @@ const router = express.Router();
 
 const log = require('../middleware/log');
 const passport = require('../middleware/passport.strategy');
+const checkAuth = require('../middleware/passport.checkAuth');
 
 // uncomment here to use database: MongoDB + Mongoose
 const users = require('../models/mongoose.users');
 
-/*
-прочитать, изменить, удалить (добавить - через регистрацию)
+// uncomment here to use database: MySQL + Sequelize
+// const users = require('../models/sequelize.users');
 
+/*
 get user id
 put user id -> update -> redirect /user:id
 delete user id -> delete, clear session -> redirect /logout
@@ -19,18 +21,6 @@ let messages = {
   actionError: '',
   loadError: '',
   actionSuccess: ''
-};
-
-let defaultUser = {
-  login: 'anonymous',
-  password: 'anonymous',
-  name: 'Anonymous',
-  email: 'anonymous@site.com',
-  tasks: []
-};
-
-const checkAuth = (req, res, next) => {
-	req.isAuthenticated() ? next() : res.redirect('/login');
 };
 
 router.all('/*', checkAuth);
@@ -52,25 +42,14 @@ router.get('/', async (req, res, next) => {
     cookies: req.cookies,
     signedCookies: req.signedCookies,
     session: req.session,
+    user: req.user,
     body: req.body
   });
 
-  let user;
-
-  try {
-    user = await users.getUser(req.session.passport.user); // userID here
-
-  } catch (err) {
-    console.error('Error: No user loaded from DB\n', err);
-    messages.loadError = 'Ошибка: данные пользователя не получены.';
-  }
-
   res.render('user', {
-    actionError: messages.actionError,
-    loadError: messages.loadError,
-    actionSuccess: messages.actionSuccess,
+    messages: messages,
     title: 'User',
-    user: user || defaultUser
+    user: req.user // {} || undefined
   });
 
   messages.actionError = messages.loadError = messages.actionSuccess = '';
@@ -86,13 +65,14 @@ router.delete('/:id', async (req, res, next) => {
     cookies: req.cookies,
     signedCookies: req.signedCookies,
     session: req.session,
+    user: req.user,
     body: req.body
   });
 
   let user;
 
   try {
-    user = await users.deleteUser(req.session.passport.user);
+    user = await users.deleteUser(req.user._id || req.user.id);
     // messages.actionSuccess = 'Пользователь успешно удален.';
 
   } catch (err) {
@@ -113,6 +93,7 @@ router.put('/:id', async (req, res, next) => {
     cookies: req.cookies,
     signedCookies: req.signedCookies,
     session: req.session,
+    user: req.user,
     body: req.body
   });
 
@@ -142,7 +123,7 @@ router.put('/:id', async (req, res, next) => {
   let user;
 
   try {
-    user = await users.updateUser(req.session.passport.user, updates);
+    user = await users.updateUser(req.user._id || req.user.id, updates);
     messages.actionSuccess = 'Данные пользователя успешно обновлены.';
 
   } catch (err) {
@@ -150,7 +131,7 @@ router.put('/:id', async (req, res, next) => {
     messages.actionError = 'Ошибка: данные пользователя не обновлены.';
   }
 
-  res.redirect(`/user/${req.params.id}`);
+  res.redirect('/user');
 });
 
 module.exports = router;

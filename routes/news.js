@@ -8,9 +8,6 @@ const cheerio = require('cheerio');
 const log = require('../middleware/log');
 const passport = require('../middleware/passport.strategy');
 
-// uncomment here to use database: MongoDB + Mongoose
-const users = require('../models/mongoose.users');
-
 const resourse = {
   habrahabr: 'https://habrahabr.ru/',
   geektimes: 'https://geektimes.ru/',
@@ -27,6 +24,7 @@ router.get('/', async (req, res, next) => {
     cookies: req.cookies,
     signedCookies: req.signedCookies,
     session: req.session,
+    user: req.user,
     body: req.body
   });
 
@@ -83,29 +81,9 @@ router.get('/', async (req, res, next) => {
       });
 
   } else {
-    if (req.isAuthenticated() && req.user) {
-      if (req.user.id) {
-        let user;
-  
-        try {
-          user = await users.getUser(req.user.id);
-          res.render('news', {
-            title: 'News',
-            user: user
-          });
-          return;
-  
-        } catch (err) {
-          console.error('Error: No user loaded from DB\n', err);
-          res.redirect('/logout');
-          return;
-        }
-      }
-    }
-  
     res.render('news', {
       title: 'News',
-      user: null
+      user: req.user // {} || undefined
     });
   }
 });

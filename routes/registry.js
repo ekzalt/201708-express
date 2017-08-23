@@ -7,6 +7,9 @@ const passport = require('../middleware/passport.strategy');
 // uncomment here to use database: MongoDB + Mongoose
 const users = require('../models/mongoose.users');
 
+// uncomment here to use database: MySQL + Sequelize
+// const users = require('../models/sequelize.users');
+
 // GET registry page
 
 router.get('/', async (req, res, next) => {
@@ -38,6 +41,7 @@ router.post('/', async (req, res, next) => {
     cookies: req.cookies,
     signedCookies: req.signedCookies,
     session: req.session,
+    user: req.user,
     body: req.body
   });
 

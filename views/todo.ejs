@@ -38,13 +38,8 @@
 
         <ul class="nav navbar-nav navbar-right">
           <li role="separator" class="divider"></li>
-          <% if (user) { %>
-            <li><a href="/user/<%= user.id %>"><%= user.name %></a></li>
-            <li><a href="/logout">Logout</a></li>
-          <% } else { %>
-            <li><a href="/registry">Registry</a></li>
-            <li><a href="/login">Login</a></li>
-          <% } %>
+          <li><a href="/user"><%= user.name %></a></li>
+          <li><a href="/logout">Logout</a></li>
         </ul>
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
@@ -64,38 +59,38 @@
     </form>
 
     <div id="message">
-      <% if (loadError) { %>
+      <% if (messages.loadError) { %>
         <div class="alert alert-danger" role="alert">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-          <p><%= loadError %></p>
+          <p><%= messages.loadError %></p>
         </div>
       <% } %>
 
-      <% if (actionError) { %>
+      <% if (messages.actionError) { %>
         <div class="alert alert-warning" role="alert">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-          <p><%= actionError %></p>
+          <p><%= messages.actionError %></p>
         </div>
       <% } %>
 
-      <% if (actionSuccess) { %>
+      <% if (messages.actionSuccess) { %>
         <div class="alert alert-success" role="alert">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-          <p><%= actionSuccess %></p>
+          <p><%= messages.actionSuccess %></p>
         </div>
       <% } %>
     </div>
 
-    <% if (todos.length) { %>
+    <% if (tasks.length) { %>
       <ul id="tasks" class="tasks">
-        <% for (let task of todos) { %>
-          <li class="tasks__task" data-id=<%= task._id || task.id %>>
+        <% tasks.forEach((task, i) => { %>
+          <li class="tasks__task" data-id="<%= task._id || task.id || i %>">
             <form action="/todo" method="post" name="edit">
               <div class="btn-group pull-right" role="group" aria-label="task-control">
                 <button type="button" class="btn btn-success btn-xs" data-method="open">&ensp;Edit&ensp;</button>
@@ -108,10 +103,10 @@
             </form>
             <p class="tasks__task__content"><%= task.content %></p>
           </li>
-        <% } %>
+        <% }); %>
       </ul>
     <% } else { %>
-      <p id="tasks" class="tasks">Задач нет</p>
+      <p>Задач нет</p>
     <% } %>
   </main>
 

@@ -1,7 +1,11 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
+// uncomment here to use database: MongoDB + Mongoose
 const users = require('../models/mongoose.users');
+
+// uncomment here to use database: MySQL + Sequelize
+// const users = require('../models/sequelize.users');
 
 passport.use(new LocalStrategy({
   usernameField: 'login',
@@ -11,11 +15,8 @@ passport.use(new LocalStrategy({
   /* 
   users.loginUser(username, (err, user) => {
     if (err) return done(err);
-
     if (!user) return done(null, false, { message: 'Incorrect username.' });
-
     if (!user.validPassword(password)) return done(null, false, { message: 'Incorrect password.' });
-
     return done(null, user);
   });
   */
@@ -38,11 +39,11 @@ passport.use(new LocalStrategy({
 }));
 
 passport.serializeUser((user, done) => {
-  done(null, user.id);
+  done(null, user._id || user.id);
 });
 
 passport.deserializeUser((id, done) => {
-  users.getUser(id)
+  users.readUser(id)
     .then(user => done(null, user))
     .catch(err => done(err));
 });

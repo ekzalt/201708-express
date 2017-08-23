@@ -50,36 +50,40 @@
     <h1><%= title %></h1>
 
     <div id="message">
-      <% if (loadError) { %>
+      <% if (messages.loadError) { %>
         <div class="alert alert-danger" role="alert">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-          <p><%= loadError %></p>
+          <p><%= messages.loadError %></p>
         </div>
       <% } %>
 
-      <% if (actionError) { %>
+      <% if (messages.actionError) { %>
         <div class="alert alert-warning" role="alert">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-          <p><%= actionError %></p>
+          <p><%= messages.actionError %></p>
         </div>
       <% } %>
 
-      <% if (actionSuccess) { %>
+      <% if (messages.actionSuccess) { %>
         <div class="alert alert-success" role="alert">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-          <p><%= actionSuccess %></p>
+          <p><%= messages.actionSuccess %></p>
         </div>
       <% } %>
     </div>
 
     <section>
       <h2>User info panel</h2>
+      <div class="row">
+        <p class="col-xs-6 userInfo__type">id:</p>
+        <p class="col-xs-6"><%= user._id || user.id %></p>
+      </div>
       <div class="row">
         <p class="col-xs-6 userInfo__type">login:</p>
         <p class="col-xs-6"><%= user.login %></p>

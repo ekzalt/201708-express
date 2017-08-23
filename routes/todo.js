@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 
 const log = require('../middleware/log');
+const passport = require('../middleware/passport.strategy');
+const checkAuth = require('../middleware/passport.checkAuth');
 
 // uncomment here to use database: MongoDB + Mongoose
 const tasks = require('../models/mongoose.tasks');
@@ -11,16 +13,20 @@ const tasks = require('../models/mongoose.tasks');
 
 /*
 let todos = [{
-  _id: 0,
+  id: 0,
+  userId: '123',
   content: 'Выучить верстку HTML/CSS'
 }, {
-  _id: 1,
+  id: 1,
+  userId: '123',
   content: 'Выучить JavaScript'
 }, {
-  _id: 2,
+  id: 2,
+  userId: '123',
   content: 'Выучить Node.js'
 }, {
-  _id: 3,
+  id: 3,
+  userId: '123',
   content: 'Выучить PHP/SQL'
 }];
 */
@@ -30,6 +36,9 @@ let messages = {
   loadError: '',
   actionSuccess: ''
 };
+
+router.all('/*', checkAuth);
+router.all('/', checkAuth);
 
 // GET todo page
 
@@ -41,22 +50,14 @@ router.get('/', async (req, res, next) => {
     cookies: req.cookies,
     signedCookies: req.signedCookies,
     session: req.session,
+    user: req.user,
     body: req.body
   });
-
-  /*
-  res.render('todo', {
-    error: null,
-    success: null,
-    title: 'ToDo',
-    todos: todos
-  });
-  */
 
   let todos;
 
   try {
-    todos = await tasks.showList();
+    todos = await tasks.readTasks(req.user._id || req.user.id);
 
   } catch (err) {
     console.error('Error: No data loaded from DB\n', err);
@@ -64,11 +65,10 @@ router.get('/', async (req, res, next) => {
   }
 
   res.render('todo', {
-    actionError: messages.actionError,
-    loadError: messages.loadError,
-    actionSuccess: messages.actionSuccess,
+    messages: messages,
     title: 'ToDo',
-    todos: todos || []
+    user: req.user, // {} || undefined
+    tasks: todos
   });
 
   messages.actionError = messages.loadError = messages.actionSuccess = '';
@@ -84,6 +84,7 @@ router.post('/', async (req, res, next) => {
     cookies: req.cookies,
     signedCookies: req.signedCookies,
     session: req.session,
+    user: req.user,
     body: req.body
   });
 
@@ -100,18 +101,18 @@ router.post('/', async (req, res, next) => {
   res.redirect('/todo');
   */
 
-  let val = req.body.task.trim();
+  let content = req.body.task.trim();
 
-  if (!val) {
+  if (!content) {
     console.error('Error: No value in task');
-    res.redirect('/todo');
+    res.end();
     return;
   }
 
   let todo;
 
   try {
-    todo = await tasks.addTask(val);
+    todo = await tasks.createTask(req.user._id || req.user.id, content);
     messages.actionSuccess = 'Задача успешно добавлена.';
 
   } catch (err) {
@@ -133,6 +134,7 @@ router.delete('/:id', async (req, res, next) => {
     cookies: req.cookies,
     signedCookies: req.signedCookies,
     session: req.session,
+    user: req.user,
     body: req.body
   });
 
@@ -172,6 +174,7 @@ router.put('/:id', async (req, res, next) => {
     cookies: req.cookies,
     signedCookies: req.signedCookies,
     session: req.session,
+    user: req.user,
     body: req.body
   });
 
@@ -190,18 +193,23 @@ router.put('/:id', async (req, res, next) => {
   res.redirect('/todo');
   */
 
-  let val = req.body.task.trim();
+  let updates = {}; // userId, content
 
-  if (!val) {
-    console.error('Error: No value in task');
-    res.redirect('/todo');
+  if (req.body.task) {
+    let valTask = req.body.task.trim();
+    if (valTask) updates.content = valTask;
+  }
+
+  if (!updates.content) {
+    console.error('Error: No values in updates');
+    res.end();
     return;
   }
 
   let todo;
 
   try {
-    todo = await tasks.changeTask(req.params.id, val);
+    todo = await tasks.updateTask(req.params.id, updates);
     messages.actionSuccess = 'Задача успешно изменена.';
 
   } catch (err) {

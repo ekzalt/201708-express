@@ -14,6 +14,7 @@ router.get('/', async (req, res, next) => {
     cookies: req.cookies,
     signedCookies: req.signedCookies,
     session: req.session,
+    user: req.user,
     body: req.body
   });
 
