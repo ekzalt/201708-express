@@ -38,12 +38,13 @@
 
         <ul class="nav navbar-nav navbar-right">
           <li role="separator" class="divider"></li>
-          <li><a href="/registry">Registry</a></li>
-          <li><a href="/login">Login</a></li>
-          <!--
-          <li><a href="/user/id">Username</a></li>
-          <li><a href="/logout">Logout</a></li>
-          -->
+          <% if (user) { %>
+            <li><a href="/user/<%= user.id %>"><%= user.name %></a></li>
+            <li><a href="/logout">Logout</a></li>
+          <% } else { %>
+            <li><a href="/registry">Registry</a></li>
+            <li><a href="/login">Login</a></li>
+          <% } %>
         </ul>
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->

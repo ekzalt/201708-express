@@ -7,7 +7,7 @@ passport.use(new LocalStrategy({
   usernameField: 'login',
   passwordField: 'password'
 
-}, (username, password, done) => {
+}, (login, password, done) => {
   /* 
   users.loginUser(username, (err, user) => {
     if (err) return done(err);
@@ -20,7 +20,15 @@ passport.use(new LocalStrategy({
   });
   */
 
-  users.loginUser({ login: username, password: password })
+  login = login.trim();
+  password = password.trim();
+
+  if (!login || !password) {
+    console.error('Error: No values in auth passport');
+    return done(null, false, { message: 'Incorrect login or password.' });
+  }
+
+  users.loginUser({ login, password })
     .then(user => {
       if (!user) return done(null, false, { message: 'Incorrect login or password.' });
 

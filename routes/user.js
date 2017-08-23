@@ -25,7 +25,7 @@ let defaultUser = {
   login: 'anonymous',
   password: 'anonymous',
   name: 'Anonymous',
-  email: 'anonymous@mysite.com',
+  email: 'anonymous@site.com',
   tasks: []
 };
 
@@ -44,7 +44,7 @@ passport.authenticate('local', {
 })
 */
 
-router.get('/:id', async (req, res, next) => {
+router.get('/', async (req, res, next) => {
   log.info({
     method: req.method,
     url: req.url,
@@ -58,7 +58,7 @@ router.get('/:id', async (req, res, next) => {
   let user;
 
   try {
-    user = await users.getUser(req.params.id);
+    user = await users.getUser(req.session.passport.user); // userID here
 
   } catch (err) {
     console.error('Error: No user loaded from DB\n', err);
@@ -92,8 +92,8 @@ router.delete('/:id', async (req, res, next) => {
   let user;
 
   try {
-    user = await users.deleteUser(req.params.id);
-    messages.actionSuccess = 'Пользователь успешно удален.';
+    user = await users.deleteUser(req.session.passport.user);
+    // messages.actionSuccess = 'Пользователь успешно удален.';
 
   } catch (err) {
     console.error('Error: User is not deleted from DB\n', err);
@@ -135,14 +135,14 @@ router.put('/:id', async (req, res, next) => {
   
   if (!updates.password && !updates.name && !updates.email) {
     console.error('Error: No values in updates');
-    res.redirect(`/user/${req.params.id}`);
+    res.end();
     return;
   }
 
   let user;
 
   try {
-    user = await users.updateUser(req.params.id, updates);
+    user = await users.updateUser(req.session.passport.user, updates);
     messages.actionSuccess = 'Данные пользователя успешно обновлены.';
 
   } catch (err) {

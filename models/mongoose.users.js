@@ -19,7 +19,12 @@ const userSchema = mongoose.Schema({
 		required: true
 	},
 	tasks: {
-		type: [{ content: String }],
+		type: [{
+			content: {
+				type: String,
+				required: true
+			}
+		}],
 		default: []
 	}
 });
@@ -70,7 +75,7 @@ class User {
 		this.model = model;
 	}
 
-	loginUser(query = { login: test, password: test }) {
+	loginUser(query = { login: 'anonymous', password: 'anonymous' }) {
 		return this.model.findOne(query)
 			.then(user => {
 				return {
@@ -115,7 +120,7 @@ class User {
 			});
 	}
 	
-	createUser(user = {}) { // user === {}
+	createUser(user = {}) {
 		return this.model.create(user)
 			.then(user => true)
 			.catch(err => {
@@ -133,7 +138,7 @@ class User {
 			});
 	}
 
-	updateUser(id, updates = {}) { // updates === {}
+	updateUser(id, updates = {}) {
 		return this.model.findByIdAndUpdate(id, updates)
 			.then(user => user)
 			.catch(err => {

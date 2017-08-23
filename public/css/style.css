@@ -20,7 +20,7 @@ main {
   padding: 0 10px;
 }
 
-h1 {
+h1, h2 {
   margin-bottom: 30px;
   text-align: center;
 }
@@ -73,4 +73,15 @@ select {
 
 .alert p {
   text-align: center;
+}
+
+.userInfo__type {
+  text-align: right;
+  font-weight: bold;
+}
+
+.editForm__editGroup {
+  display: block;
+  width: 230px;
+  margin: 0 auto;
 }
