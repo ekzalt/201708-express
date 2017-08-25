@@ -4,11 +4,7 @@ const router = express.Router();
 const log = require('../middleware/log');
 const passport = require('../middleware/passport.strategy');
 
-// uncomment here to use database: MongoDB + Mongoose
-const users = require('../models/mongoose.users');
-
-// uncomment here to use database: MySQL + Sequelize
-// const users = require('../models/sequelize.users');
+const { users } = require('../models');
 
 // GET registry page
 
@@ -86,7 +82,7 @@ router.post('/', async (req, res, next) => {
     return;
 
   } catch (err) {
-    console.error('Error: Task is not saved to DB\n', err);
+    console.error('Error: User has not saved to DB\n', err);
     res.redirect('/registry');
     return;
   }

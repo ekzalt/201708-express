@@ -1,11 +1,7 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
-// uncomment here to use database: MongoDB + Mongoose
-const users = require('../models/mongoose.users');
-
-// uncomment here to use database: MySQL + Sequelize
-// const users = require('../models/sequelize.users');
+const { users } = require('../models');
 
 passport.use(new LocalStrategy({
   usernameField: 'login',

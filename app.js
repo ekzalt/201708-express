@@ -16,7 +16,7 @@ const sessionConfig = require('./config/session.config');
 const passport = require('./middleware/passport.strategy');
 
 const pathways = require('./routes/pathways');
-const index = require('./routes/index');
+const home = require('./routes/home');
 const login = require('./routes/login');
 const logout = require('./routes/logout');
 const news = require('./routes/news');
@@ -63,7 +63,7 @@ app.use(pathways.login, login);
 app.use(pathways.logout, logout);
 app.use(pathways.news, news);
 // /
-app.use(pathways.index, index);
+app.use(pathways.home, home);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

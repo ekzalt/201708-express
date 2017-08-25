@@ -15,11 +15,10 @@ const TaskModel = mongoose.model('Task', taskSchema);
 
 /*
 // in MongoDB
-
 let exampleTask = {
-	_id: 1, // default
-	userId: '1', // required
-	content: 'Some text' // required
+	_id: '8342ru982u298ru29r2r', // string, default
+	userId: '8342ru982u298ru29r2r', // string, required
+	content: 'Some text' // string, required
 };
 */
 
@@ -48,8 +47,8 @@ class Task {
 			});
 	}
 
-	updateTask(taskId, updates = {}) {
-		return this.model.findByIdAndUpdate(taskId, updates)
+	updateTask(id, updates = {}) {
+		return this.model.findByIdAndUpdate(id, updates)
 			.then(result => result)
 			.catch(err => {
 				console.error('Error update task in MongoDB:\n', err);
@@ -57,11 +56,20 @@ class Task {
 			});
 	}
 
-	deleteTask(taskId) {
-		return this.model.findByIdAndRemove(taskId)
-			.then(result => result)
+	deleteTask(id) {
+		return this.model.findByIdAndRemove(id)
+			.then(result => true)
 			.catch(err => {
 				console.error('Error delete task from MongoDB:\n', err);
+				return err;
+			});
+	}
+
+	deleteAllUserTasks(userId) {
+		return this.model.remove({ userId })
+			.then(result => true)
+			.catch(err => {
+				console.error('Error delete all user tasks from MongoDB:\n', err);
 				return err;
 			});
 	}

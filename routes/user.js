@@ -5,11 +5,7 @@ const log = require('../middleware/log');
 const passport = require('../middleware/passport.strategy');
 const checkAuth = require('../middleware/passport.checkAuth');
 
-// uncomment here to use database: MongoDB + Mongoose
-const users = require('../models/mongoose.users');
-
-// uncomment here to use database: MySQL + Sequelize
-// const users = require('../models/sequelize.users');
+const { users, tasks } = require('../models');
 
 /*
 get user id
@@ -69,15 +65,25 @@ router.delete('/:id', async (req, res, next) => {
     body: req.body
   });
 
+  let userId = req.user._id || req.user.id;
+
+  if (req.params.id != userId) {
+    console.error(`Error Bad Request! req.params.id: ${req.params.id} != userId: ${userId}`);
+    res.end();
+    return;
+  }
+
+  let todos;
   let user;
 
   try {
-    user = await users.deleteUser(req.user._id || req.user.id);
+    todos = await tasks.deleteAllUserTasks(userId);
+    user = await users.deleteUser(userId);
     // messages.actionSuccess = 'Пользователь успешно удален.';
 
   } catch (err) {
-    console.error('Error: User is not deleted from DB\n', err);
-    messages.actionError = 'Ошибка: пользователь не удален.';
+    console.error('Error: User data is not deleted from DB\n', err);
+    // messages.actionError = 'Ошибка: пользователь не удален.';
   }
 
   res.redirect('/logout');
@@ -97,6 +103,14 @@ router.put('/:id', async (req, res, next) => {
     body: req.body
   });
 
+  let userId = req.user._id || req.user.id;
+
+  if (req.params.id != userId) {
+    console.error(`Error Bad Request! req.params.id: ${req.params.id} != userId: ${userId}`);
+    res.end();
+    return;
+  }
+
   let updates = {}; // password, name, email
 
   if (req.body.password) {
@@ -113,7 +127,7 @@ router.put('/:id', async (req, res, next) => {
     let valEmail = req.body.email.trim();
     if (valEmail) updates.email = valEmail;
   }
-  
+
   if (!updates.password && !updates.name && !updates.email) {
     console.error('Error: No values in updates');
     res.end();
@@ -123,7 +137,7 @@ router.put('/:id', async (req, res, next) => {
   let user;
 
   try {
-    user = await users.updateUser(req.user._id || req.user.id, updates);
+    user = await users.updateUser(userId, updates);
     messages.actionSuccess = 'Данные пользователя успешно обновлены.';
 
   } catch (err) {

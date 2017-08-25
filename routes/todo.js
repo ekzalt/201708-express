@@ -5,11 +5,7 @@ const log = require('../middleware/log');
 const passport = require('../middleware/passport.strategy');
 const checkAuth = require('../middleware/passport.checkAuth');
 
-// uncomment here to use database: MongoDB + Mongoose
-const tasks = require('../models/mongoose.tasks');
-
-// uncomment here to use database: MySQL + Sequelize
-// const tasks = require('../models/sequelize.tasks');
+const { tasks } = require('../models');
 
 /*
 let todos = [{

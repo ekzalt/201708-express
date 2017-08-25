@@ -1,5 +1,5 @@
 module.exports = {
-  index: '/',
+  home: '/',
   login: '/login',
   logout: '/logout',
   news: '/news',

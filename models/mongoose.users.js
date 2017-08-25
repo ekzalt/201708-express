@@ -24,13 +24,12 @@ const UserModel = mongoose.model('User', userSchema);
 
 /*
 // in MongoDB
-
 let exampleUser = {
-	_id: 1, // default
-	login: 'nick', // required
-	password: 'nick', // required
-	name: 'Nick', // required
-	email: 'nick@site.com', // required
+	_id: '8342ru982u298ru29r2r', // string, default
+	login: 'nick', // string, required
+	password: 'nick', // string, required
+	name: 'Nick', // string, required
+	email: 'nick@site.com' // string, required
 };
 */
 

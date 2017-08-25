@@ -18,7 +18,7 @@ router.get('/', async (req, res, next) => {
     body: req.body
   });
 
-  res.render('index', {
+  res.render('home', {
     title: 'Home',
     user: req.user // {} || undefined
   });

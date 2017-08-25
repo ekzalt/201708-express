@@ -12,7 +12,7 @@ const sequelize = new Sequelize(config.database, config.username, config.passwor
 
 // Test the connection
 sequelize.authenticate()
-	.then(() => {
+	.then(data => {
 		console.log(`Connection to MySQL database ${config.database} has been established successfully! :)`);
 	})
 	.catch(err => {
