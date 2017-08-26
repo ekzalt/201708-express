@@ -1,5 +1,36 @@
 ﻿# 201708-express (English)
 
+## Configuration settings
+
+  - `./config/session.config.js` Configure [express-session](https://github.com/expressjs/session)
+  - `./config/mongoose.config.js` Configure [Mongoose](http://mongoosejs.com/)
+  - `./config/sequelize.config.js` Configure [Sequelize](http://docs.sequelizejs.com/)
+
+## Simple switching between databases
+
+`./models/index.js`
+
+```js
+// uncomment here to use database: MongoDB + Mongoose
+// const users = require('./mongoose.users');
+// const tasks = require('./mongoose.tasks');
+
+// uncomment here to use database: MySQL + Sequelize
+const users = require('./sequelize.users');
+const tasks = require('./sequelize.tasks');
+
+module.exports = { users, tasks };
+```
+
+## Installation and start application
+
+Start MongoDB or MySQL server.
+
+```sh
+$ npm install
+$ npm start
+```
+
 ## About this project
 
 I wrote this server on [Node.js](https://nodejs.org/en/), and using the [Express](http://expressjs.com/) framework.
@@ -7,16 +38,17 @@ To stylize page layout, I used the [Bootstrap](https://getbootstrap.com/docs/3.3
 To add authorization to the site and user sessions, I used [express-session](https://github.com/expressjs/session) + [Passport](http://passportjs.org/).
 
 For data storage, I used 2 databases:
-  - [MongoDB](https://www.mongodb.com/) + [Mongoose](http://mongoosejs.com/),
-  - [MySQL](https://dev.mysql.com/) + [Sequelize](http://docs.sequelizejs.com/).
-You can easily switch between them.
+  - [MongoDB](https://www.mongodb.com/) + [Mongoose](http://mongoosejs.com/)
+  - [MySQL](https://dev.mysql.com/) + [Sequelize](http://docs.sequelizejs.com/)
 
 ## Server Features
 
-  - Registration and authorization added!
-  - Support user sessions!
-  - ToDo is available only to registered users!
-  - Each user has his own personal task list!
+  - Registration and authorization added
+  - Support user sessions
+  - Each user has his own page, where he can view or change his information
+  - From this page, the user can delete his account
+  - ToDo is available only to registered users
+  - Each user has his own personal task list
 
 ### /news
 
@@ -36,23 +68,55 @@ The layout of this page is generated on the server side by the [EJS](https://www
 
 # 201708-express (Russian)
 
+## Настройки конфигурации
+
+  - `./config/session.config.js` Конфигурация [express-session](https://github.com/expressjs/session)
+  - `./config/mongoose.config.js` Конфигурация [Mongoose](http://mongoosejs.com/)
+  - `./config/sequelize.config.js` Конфигурация [Sequelize](http://docs.sequelizejs.com/)
+
+## Простое переключение между базами данных
+
+`./models/index.js`
+
+```js
+// uncomment here to use database: MongoDB + Mongoose
+// const users = require('./mongoose.users');
+// const tasks = require('./mongoose.tasks');
+
+// uncomment here to use database: MySQL + Sequelize
+const users = require('./sequelize.users');
+const tasks = require('./sequelize.tasks');
+
+module.exports = { users, tasks };
+```
+
+## Установка и запуск приложения
+
+Запустите MongoDB или MySQL сервер.
+
+```sh
+$ npm install
+$ npm start
+```
+
 ## Об этом проекте
 
 Я написал этот сервер на [Node.js](https://nodejs.org/en/), и с помощью фреймворка [Express](http://expressjs.com/).
 Для стилизации разметки страниц я использовал фреймворк [Bootstrap](https://getbootstrap.com/docs/3.3/).
-Для добавления авторизации на сайте и сессий пользователей я использовал [express-session](https://github.com/expressjs/session) + [Passport](http://passportjs.org/)
+Для добавления авторизации на сайте и сессий пользователей я использовал [express-session](https://github.com/expressjs/session) + [Passport](http://passportjs.org/).
 
 Для хранения данных я использовал 2 базы даных:
-  - [MongoDB](https://www.mongodb.com/) + [Mongoose](http://mongoosejs.com/),
-  - [MySQL](https://dev.mysql.com/) + [Sequelize](http://docs.sequelizejs.com/).
-Вы можете легко переключаться между ними.
+  - [MongoDB](https://www.mongodb.com/) + [Mongoose](http://mongoosejs.com/)
+  - [MySQL](https://dev.mysql.com/) + [Sequelize](http://docs.sequelizejs.com/)
 
 ## Особенности сервера
 
-  - Добавлена регистрация и авторизация!
-  - Добавлены сессии пользователей!
-  - ToDo доступна только зарегистрированным пользователям!
-  - У каждого пользователя свой личный список задач!
+  - Добавлена регистрация и авторизация
+  - Добавлены сессии пользователей
+  - У каждого пользователя есть своя страница, где он может посмотреть или изменить свою информацию
+  - С этой страницы пользователь может удалить свой аккаунт
+  - ToDo доступна только зарегистрированным пользователям
+  - У каждого пользователя свой личный список задач
 
 ### /news
 
