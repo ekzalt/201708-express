@@ -58,6 +58,19 @@ class User {
 			});
 	}
 
+	findOrCreateUser(user = {}) {
+    return this.model.findOne({ login: user.login })
+      .then(result => {
+        if (result) return result;
+        else this.model.create(user);
+      })
+      .then(result => result)
+      .catch(err => {
+        console.error('Error read old user or write new user to MongoDB:\n', err);
+        return err;
+      });
+  }
+
 	readUser(id) {
 		return this.model.findById(id)
 			.then(user => user)

@@ -5,7 +5,7 @@ const url = require('url');
 const fetch = require('node-fetch');
 const cheerio = require('cheerio');
 
-const log = require('../middleware/log');
+const log = require('../utils/log');
 const passport = require('../middleware/passport.strategy');
 
 const resourse = {

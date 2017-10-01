@@ -59,14 +59,27 @@ class User {
     */
   }
 
-  loginUser(query = { login: 'anonymous', password: 'anonymous' }) {
-    return this.model.findOne({ where: query })
+  loginUser(user = { login: 'anonymous', password: 'anonymous' }) {
+    return this.model.findOne({ where: user })
       .then(result => {
         if (!result) return Promise.reject('User not found');
         return result;
       })
       .catch(err => {
         console.error('Error read user from MySQL:\n', err);
+        return err;
+      });
+  }
+
+  findOrCreateUser(user = {}) {
+    return this.model.findOne({ where: { login: user.login } })
+      .then(result => {
+        if (result) return result;
+        else this.model.create(user);
+      })
+      .then(result => result)
+      .catch(err => {
+        console.error('Error read old user or write new user to MySQL:\n', err);
         return err;
       });
   }

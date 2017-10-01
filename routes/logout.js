@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const log = require('../middleware/log');
+const log = require('../utils/log');
 const passport = require('../middleware/passport.strategy');
 
 // GET logout page

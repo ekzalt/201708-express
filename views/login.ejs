@@ -48,6 +48,7 @@
 
   <main>
     <h1><%= title %></h1>
+    <div id="fb-root"></div>
 
     <form action="/login" method="post" class="form-horizontal" name="loginForm">
       <div class="form-group">
@@ -79,12 +80,41 @@
         </div>
       </div>
     </form>
+
+    <div 
+      class="col-sm-offset-1 col-sm-11 fb-login-button" 
+      data-width="300" 
+      data-max-rows="1" 
+      data-size="large" 
+      data-button-type="login_with" 
+      data-show-faces="false" 
+      data-auto-logout-link="false" 
+      data-use-continue-as="true"
+      scope="public_profile,email"
+      onlogin="checkLoginState();">
+    </div>
+    <div id="status"></div>
   </main>
 
   <footer>Footer here</footer>
 
+  <!--
+  <script>
+    (function(d, s, id) {
+      let js, fjs = d.getElementsByTagName(s)[0];
+
+      if (d.getElementById(id)) return;
+
+      js = d.createElement(s);
+      js.id = id;
+      js.src = '//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.10&appId=1234567890'; // example appId
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+  </script>
+  -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src="js/client.login.js"></script>
 </body>
 
 </html>
