@@ -5,6 +5,7 @@
   - `./config/session.config.js` Configure [express-session](https://github.com/expressjs/session)
   - `./config/mongoose.config.js` Configure [Mongoose](http://mongoosejs.com/)
   - `./config/sequelize.config.js` Configure [Sequelize](http://docs.sequelizejs.com/)
+  - `./config/facebook.config.js` Configure [Facebook](https://www.facebook.com/) application keys
 
 ## Simple switching between databases
 
@@ -44,6 +45,7 @@ For data storage, I used 2 databases:
 ## Server Features
 
   - Registration and authorization added
+  - Added login to the site via [Facebook](https://www.facebook.com/)
   - Support user sessions
   - Each user has his own page, where he can view or change his information
   - From this page, the user can delete his account
@@ -73,6 +75,7 @@ The layout of this page is generated on the server side by the [EJS](https://www
   - `./config/session.config.js` Конфигурация [express-session](https://github.com/expressjs/session)
   - `./config/mongoose.config.js` Конфигурация [Mongoose](http://mongoosejs.com/)
   - `./config/sequelize.config.js` Конфигурация [Sequelize](http://docs.sequelizejs.com/)
+  - `./config/facebook.config.js` Конфигурация [Facebook](https://www.facebook.com/) приложения
 
 ## Простое переключение между базами данных
 
@@ -112,6 +115,7 @@ $ npm start
 ## Особенности сервера
 
   - Добавлена регистрация и авторизация
+  - Добавлен вход на сайт через [Facebook](https://www.facebook.com/)
   - Добавлены сессии пользователей
   - У каждого пользователя есть своя страница, где он может посмотреть или изменить свою информацию
   - С этой страницы пользователь может удалить свой аккаунт
